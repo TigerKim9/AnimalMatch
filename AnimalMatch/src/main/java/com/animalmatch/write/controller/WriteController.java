@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.animalmatch.config.PrincipalDetails;
-import com.animalmatch.user.UserDTO;
+import com.animalmatch.user.User;
 import com.animalmatch.write.service.WriteService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,11 @@ public class WriteController {
 	private final WriteService writeService;
 	
 	@GetMapping("/write")
-	public String write(Model model, UserDTO userDTO
+	public String write(Model model, User user
 			,@AuthenticationPrincipal PrincipalDetails loginUser
 			) {
-		userDTO.setUserId(loginUser.getUsername());
-		model.addAttribute("loginUser",userDTO);
+		user = loginUser.getUser();
+		model.addAttribute("loginUser",user);
 		return "write";
 	}
 	

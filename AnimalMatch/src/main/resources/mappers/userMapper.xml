@@ -49,13 +49,17 @@
 
 	<select id="findById" resultType="com.animalmatch.user.User">
 		SELECT
-			user_uid uid,
-			user_id id,
-			user_pw pw,
-			user_email email,
-			user_date regdate
+			user_uid,
+			user_status,
+			user_id,
+			user_name,			
+			user_email,
+			user_address,
+			user_gender,
+			user_birth,
+			user_date
 		FROM user
-		WHERE user_id = #{id}	
+		WHERE user_id = #{userId}	
 	</select>
 
 	<select id="selectAuthoritiesById" resultType="String">

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <meta name="format-detection" content="telephone=no" />
+      <title></title>
+      <!--css-->
+      <link rel="stylesheet" href="css/reset.css" />
+      <link rel="stylesheet" href="css/common.css" />
+      <link rel="stylesheet" href="css/purchase_admin.css" />
+      <!--favicon-->
+      <link rel="shortcut icon" href="img/favicon.ico" />
+      <link rel="icon" href="img/favicon.ico" />
+      <!--Import-->
+      <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+      <script type="text/javascript" src="js/common.js"></script>
+      <script defer type="text/javascript" src="js/pagination.js"></script>
+      <script
+        defer
+        type="text/javascript"
+        src="js/purchase/purchase_admin.js"
+      ></script>
+    </head>
+
+    <body>
+    
+        <!-- 컨텐츠 시작 -->
+        <div id="wrap_content" class="purchase_admin_page">
+          <!-- 매입처관리페이지 -->
+          <section class="section content_section">
+            <div class="wrap_inner">
+           
+
+              
+
+    
+
+              <!-- 테이블 -->
+              <div class="table_wrap">
+                <div class="top_area">
+                  <span th:text="|전체 ${totalListCnt} 건|" class="font_4">
+                  </span>
+                  <button class="register_btn">
+                    <a href="purchase_register" class="link">
+                      <img src="img/list_icon.svg" alt="" />
+                      신규 매입처 등록
+                    </a>
+                  </button>
+                </div>
+                <div class="table">
+                  <div class="table_head">
+                    <ul class="depth">
+                      <li class="list">No.</li>
+                      <li class="list">매입처 코드</li>
+                      <li class="list">매입처 명</li>
+                      <li class="list">상품수</li>
+                      <li class="list">매입처 담당자</li>
+                      <li class="list">연락처</li>
+                      <li class="list">이메일</li>
+                      <li class="list">최근거래일</li>
+                      <li class="list">삭제</li>
+                    </ul>
+                  </div>
+                  <div class="table_body">
+                    <div class="empty_box">
+                      <p>매입처를 등록해주세요.</p>
+                    </div>
+                    <ul
+                      th:each="purchaseContent : ${purchaseList}"
+                      class="depth"
+                      th:attr="data-idx=${purchaseContent.purchaseId}, data-pname=${purchaseContent.purchaseName}"
+                    >
+                      <li
+                        th:text="|${purchaseContent.purchaseId}|"
+                        class="list font_4"
+                      >
+                        <!-- th:id="${purchaseContent.purchaseId}" th:value="${purchaseContent.purchaseId}" -->
+                        <!--매입처ID-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchaseCode}|"
+                        class="list font_4"
+                      >
+                        <!--매입처코드-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchaseName}|"
+                        class="list font_4"
+                      >
+                        <!--매입처명-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchaseProductCount}|"
+                        class="list font_4"
+                      >
+                        <!--매입처 상품수-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchaseManager}|"
+                        class="list font_4"
+                      >
+                        <!--매입처 담당자-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchasePhone}|"
+                        class="list font_4"
+                      >
+                        <!--매입처 휴대폰-->
+                      </li>
+                      <li
+                        th:text="|${purchaseContent.purchaseEmail}|"
+                        class="list font_4"
+                      >
+                        <!--매입처 Email-->
+                      </li>
+                      <li
+                        th:text="${#strings.substring(purchaseContent.recentPurchaseDate,0, 10)}"
+                        class="list font_4"
+                      >
+                        <!--최근 거래 날짜-->
+                      </li>
+                      <li class="list font_4">
+                        <button class="delete_btn">
+                          <a href="javascript:void(0);" class="link">
+                            <img src="img/delete_icon.svg" alt="" />
+                          </a>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 게시물페이지 네비게이션 -->
+              <div class="list_page_num">
+                <ul class="depth">
+                  <li class="list big_icon">
+                    <a
+                      th:href="@{?searchType={searchType}&keyword={keyword}&page=1 (searchType=${searchType}, keyword=${keyword})}"
+                      href="javascript:void(0);"
+                      class="link"
+                    >
+                      <img src="img/prev_prev_icon.svg" alt="" />
+                    </a>
+                  </li>
+                  <li class="list small_icon">
+                    <a
+                      th:href="@{?searchType={searchType}&keyword={keyword}&page={page} (page = ${purchasePage.prevBlock}, searchType=${searchType}, keyword=${keyword})}"
+                      href="javascript:void(0);"
+                      class="link"
+                    >
+                      <img src="img/prev_icon.svg" alt="" />
+                    </a>
+                  </li>
+                  <th:block
+                    th:with="start = ${purchasePage.startPage}, end = ${purchasePage.endPage}"
+                  >
+                    <li
+                      class="list"
+                      th:with="start = ${purchasePage.startPage}, end = ${purchasePage.endPage}"
+                      th:each="pageButton : ${#numbers.sequence(start, end)}"
+                    >
+                      <a
+                        th:href="@{?searchType={searchType}&keyword={keyword}&page={page} (page = ${pageButton}, searchType=${searchType}, keyword=${keyword})}"
+                        th:text="${pageButton}"
+                        href="javascript:void(0);"
+                        class="link"
+                      >
+                      </a>
+                    </li>
+                  </th:block>
+
+                  <li class="list small_icon">
+                    <a
+                      th:href="@{?searchType={searchType}&keyword={keyword}&page={page} (page = ${purchasePage.nextBlock}, searchType=${searchType}, keyword=${keyword})}"
+                      href="javascript:void(0);"
+                      class="link"
+                    >
+                      <img src="img/next.svg" alt="" />
+                    </a>
+                  </li>
+                  <li class="list big_icon">
+                    <a
+                      th:href="@{?searchType={searchType}&keyword={keyword}&page={page} (page = ${purchasePage.totalPageCnt}, searchType=${searchType}, keyword=${keyword})}"
+                      href="javascript:void(0);"
+                      class="link"
+                    >
+                      <img src="img/next_next.svg" alt="" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- 모달창 -->
+          <section class="section modal_section">
+            <!--삭제 버튼 클릭 시-->
+            <div class="modal_wrap message_modal itemDelete_modal">
+              <div class="modal_box">
+                <p>매입처를 삭제하겠습니까?</p>
+                <button class="cancel_btn">
+                  <a href="javascript:void(0);" class="link"> 취소 </a>
+                </button>
+                <button class="confirm_btn">
+                  <a href="#" class="link"> 확인 </a>
+                </button>
+              </div>
+            </div>
+
+            <!--삭제 완료 모달창-->
+            <div class="modal_wrap message_modal deleteC_modal">
+              <div class="modal_box">
+                <p>삭제되었습니다.</p>
+                <button class="confirm_btn">
+                  <a href="javascript:void(0);" class="link"> 확인 </a>
+                </button>
+              </div>
+            </div>
+
+            <!--삭제 실패 모달창-->
+            <div class="modal_wrap message_modal deleteF_modal">
+              <div class="modal_box">
+                <p>삭제를 실패하였습니다. 다시 시도해주세요.</p>
+                <button class="confirm_btn">
+                  <a href="javascript:void(0);" class="link"> 확인 </a>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+    </body>
+    <script></script>
+  </html>
+</html>

@@ -46,10 +46,10 @@ public class UserService {
 	}
 	
 	// 특정 id(username) 의 정보 가져오기
-	public User findById(String id) {
+	public User findById(String userId) {
 		//검색기록
-		userMapper.searchLog(id);
-		return userMapper.findById(id);
+		userMapper.searchLog(userId);
+		return userMapper.findById(userId);
 	}
 	
 	// 특정 id 의 권한(들) 정보 가져오기
