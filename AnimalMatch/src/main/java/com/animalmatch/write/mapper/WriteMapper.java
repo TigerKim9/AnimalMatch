@@ -24,6 +24,7 @@ public interface WriteMapper {
 	//글 수정
 	int updateWrite(Write write);
 	
+	//글 삭제
 	int deleteWrite(/*삭제DTO or 로그인&글id param*/);
 	
 	/*------------------------------------댓글 기능-----------------------------------------*/
