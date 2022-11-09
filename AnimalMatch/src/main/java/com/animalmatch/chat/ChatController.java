@@ -34,6 +34,7 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    	log.info("{}: {}",chatMessage.getSender(), chatMessage.getContent());
         return chatMessage;
     }
 
