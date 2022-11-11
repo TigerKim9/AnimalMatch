@@ -17,4 +17,11 @@ class AnimalMatchApplicationTests {
 		assertEquals(result, three);
 	}
 
+	@Test
+	void test(){
+	
+	int i = 1;
+	assertEquals(i,1);
+	}
+
 }
