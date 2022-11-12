@@ -22,6 +22,8 @@ class AnimalMatchApplicationTests {
 	
 	int i = 1;
 	assertEquals(i,1);
+	
+	int io=2;
 	}
 
 }
