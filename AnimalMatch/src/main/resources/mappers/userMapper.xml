@@ -17,12 +17,7 @@
 		INSERT INTO user(
   			user_id, 
   			user_pw, 
-  			user_email,
-  			,
-  			,
-  			,
-  			,
-  			,
+  			user_email
   			)
 		VALUES(#{userId}, #{userPw}, #{userEmail})
 	</insert>
