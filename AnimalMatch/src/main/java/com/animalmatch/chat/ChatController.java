@@ -7,6 +7,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -20,7 +21,7 @@ public class ChatController {
     	log.info("chat : {}", chat);
         log.info("@ChatController, chat GET()");
         
-        return "chat";
+        return "html/chat";
     }
     @GetMapping("/chat2")
     public String chat2GET(String chat){
@@ -28,7 +29,7 @@ public class ChatController {
     	log.info("chat2 : {}", chat);
     	log.info("@ChatController, chat2 GET()");
     	
-    	return "chat2";
+    	return "html/chat2";
     }
     
     @MessageMapping("/chat.sendMessage")
